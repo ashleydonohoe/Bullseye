@@ -14,6 +14,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var slider: UISlider!
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var roundLabel: UILabel!
+    
     var randomTarget: Int = 0
     var score: Int = 0
     var round: Int = 1
@@ -24,15 +25,11 @@ class ViewController: UIViewController {
         generateRandomTarget()
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
     @IBAction func hitButtonPressed(_ sender: UIButton) {
         let selectedNumber = Int(slider.value.rounded())
         print(selectedNumber)
         checkForMatch(selectedNumber: selectedNumber)
+        generateRandomTarget()
     }
     
     @IBAction func redoButtonPressed(_ sender: UIButton) {
@@ -49,10 +46,8 @@ class ViewController: UIViewController {
     func checkForMatch(selectedNumber: Int) {
         // Scoring = difference between selected and random number
         let difference = 100 - abs(selectedNumber - randomTarget)
-        if(selectedNumber == randomTarget) {
-            print("You got it!")
-        }
-        
+        score += difference
+        scoreLabel.text = "Score: \(score)"
     }
 }
 
